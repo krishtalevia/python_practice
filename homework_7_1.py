@@ -19,7 +19,9 @@ greet('Алексей')
 
 # Задача №2
 def type_check(*types):
+
     def decorator(f):
+
         def wrapper(*args):
             for i in args:
                 if not isinstance(i, types):
@@ -39,7 +41,9 @@ print (add(2, 3))
 
 # Задача №3
 def validate_range(min_value, max_value):
+
     def decorator(f):
+
         def wrapper(*args):
             for i in args:
                 if isinstance(i, (int, float)):
@@ -58,3 +62,58 @@ def set_percentage(value):
 
 set_percentage(50)
 #set_percentage(150)
+
+# Задача №4
+def trace(f):
+    tab_count = 0
+
+    def wrapper(*args):
+        nonlocal tab_count
+        tab_count += 1
+        print('\t'*tab_count, end='')
+        print(f"--> Вход в функцию '{f.__name__}' с аргументами {args} \n")
+
+        result = f(*args)
+
+        tab_count -= 1
+        print('\t'*tab_count, end='')
+        print(f"--> Выход из функцию '{f.__name__}' с результатом {result} \n")
+
+        return result
+
+    return wrapper
+
+@trace
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+factorial(3)
+
+
+# Задача №5
+def uppercase_result(f):
+
+    def wrapper(*args):
+        result = f(*args)
+
+        if isinstance(result, str):
+            result = result.upper()
+
+        return result
+
+    return wrapper
+
+@uppercase_result
+def get_greeting(name):
+    return f"Привет, {name}"
+
+print(get_greeting("Алексей"))  # Вывод: ПРИВЕТ, АЛЕКСЕЙ
+
+@uppercase_result
+def add_numbers(a, b):
+    return a + b
+
+print(add_numbers(2, 3))  # Вывод: 5
