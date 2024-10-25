@@ -70,3 +70,38 @@ print(reduce(lambda x,y: x*y, filter(lambda x: x >= 0, numbers)))
 # Задача №12
 words = ["racecar", "hello", "level", "world"]
 print(list(filter(lambda x: x == x[::-1], map(lambda x: x[::-1], words))))
+
+# Задача на создание Функций-Генераторов
+
+# Задача №1.1
+def five_multiples_generator():
+    x = 5
+    while True:
+        yield x
+        x += 5
+
+# Задача №1.2
+def squares_generator():
+    x = 1
+    while True:
+        yield x ** 2
+        x += 1
+
+# Задача №1.3
+def without_3_multiples_generator(n):
+    for i in range(1, n):
+        if i % 3 != 0:
+            yield i
+
+# Задача №1.4
+def count_substrings_generaotr(word, lenght):
+    while len(word) >= lenght:
+        yield word[0:lenght:1]
+        word = word[1::]
+
+# Задача №1.5
+def doubled_in_range(a, b):
+    for i in range(a, b + 1, 2):
+        yield i
+
+print(list(doubled_in_range(1, 10)))
