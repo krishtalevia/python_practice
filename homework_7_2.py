@@ -103,5 +103,3 @@ def count_substrings_generaotr(word, lenght):
 def doubled_in_range(a, b):
     for i in range(a, b + 1, 2):
         yield i
-
-print(list(doubled_in_range(1, 10)))
